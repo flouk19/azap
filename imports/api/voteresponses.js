@@ -1,13 +1,19 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
+import { Restaurants } from './restaurants.js';
 
 export const VoteResponses = new Mongo.Collection('voteResponses',{
     transform: (response)=>{
         var user = Meteor.users.findOne({_id:{$eq: response.voter}});
+        var restaurant = Restaurants.findOne({_id:{ $eq: response.restaurantId}});
         if (user) {
             var username = user.username;
             response.username = username;
+        }
+        if(restaurant){
+            var restname = restaurant.name;
+            response.restaurant = restname;
         }
         return response;
     }

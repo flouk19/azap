@@ -37,41 +37,41 @@
             </span>
             <canvas class="chart chart-doughnut" chart-data="$ctrl.voteResults"
             chart-colors="colors" chart-labels="labels" height="100px"></canvas>
-            <ul ng-repeat="(pos, responses) in $ctrl.allVoteResponses | groupBy: 'positive'">
-                <span ng-if="pos">These guys voted Positive</span>
-                <span ng-if="!pos">And these guys don't like the idea</span>
-                <li ng-repeat="res in responses" >
-                    {{res.username}}
-                </li>
-            </ul>
-            <!-- <ul ng-repeat="(key, value) in $ctrl.allVoteResponses | groupBy: 'restaurant'">
-                {{ key }}
-                <li ng-repeat="player in value">
-                    player: {{ player.username }} 
-                </li>
-            </ul> -->
-            
-            <!-- <span>
-            These guys voted Positive
-            </span>
-            <ul>
-                <li ng-repeat="res in $ctrl.voterPos" >
-                    {{res.username}}
-                </li>
-            </ul>
-            <span>
-            And these guys don't like the idea
-            </span>
-            <ul>
-                <li ng-repeat="res in $ctrl.voterNeg">
-                    {{res.username}}
-                </li>
-            </ul> -->
+            <div>
+                <span>
+                These guys are positive, <strong>{{$ctrl.runningVote.restaurant.name}}</strong>-positive
+                </span>
+                <ul>
+                    <li ng-repeat="res in $ctrl.posVoteResponses" >
+                        {{res.username}}
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <span>
+                And these guys don't like the idea
+                </span>
+                <ul>
+                    <li ng-repeat="res in $ctrl.negVoteResponses">
+                        {{res.username}}
+                    </li>
+                </ul>
+            </div>
+            <div class="results-per-restaurant" ng-repeat="(restaurant, responses) in $ctrl.otherVoteResponses | groupBy: 'restaurant'">
+                <span>These guys want to order at <strong>{{restaurant}}</strong></span>
+                <ul>
+                    <li ng-repeat="res in responses">
+                        {{ res.username }}
+                    </li>
+                </ul>
+            </div>
+
+
         </div>
         <span ng-show="$ctrl.isNoVote($ctrl.voteResults)">
             No votes so far, better wait for another minute
         </span>
-        
+
     </div>
 
 </div>
