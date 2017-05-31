@@ -1,0 +1,18 @@
+<form ng-submit="$ctrl.addVote($ctrl.restaurant, $ctrl.validDate, $ctrl.allowSuggestions)"
+ng-if="$ctrl.currentUser" ng-hide="$ctrl.runningVote" class="vote-form">
+    <label for="newVoteRestaurant">What for lunch:</label>
+    <input ng-model="$ctrl.restaurant" type="text" placeholder="At which restaurant do you want to order?"
+        class="u-full-width" id="newVoteRestaurant"/>
+    <div class="row" ng-hide="true">
+        <div class="col-md-8">
+            <label>When, at latest do you want to order?</label>
+            <div ng-model="$ctrl.validDate" id="validdatepicker" datetimepicker datetimepicker-options="{{$ctrl.datetimepickerOptions}}">
+            </div>
+        </div>
+    </div>
+    <label class="check-box-right">
+        <input type="checkbox" ng-model="$ctrl.allowSuggestions"/>
+        <span class="label-body">Give them the right of free speech</span>
+    </label>
+    <input type="submit" value="Go" class="button-primary"/>
+</form>

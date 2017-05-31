@@ -1,0 +1,77 @@
+<div ng-if="$ctrl.currentUser && $ctrl.runningVote" class="vote-form">
+    <button class="delete u-cf" ng-click="$ctrl.finishVote($ctrl.runningVote.vote)" ng-show="$ctrl.currentUser._id==$ctrl.runningVote.vote.owner"> &times;</button>
+    <h4><strong>{{$ctrl.runningVote.vote.username}}</strong> wants to order at <strong>{{$ctrl.runningVote.restaurant.name}}</strong></h4>
+    <form ng-if="!$ctrl.voteOwner && !$ctrl.voteAnswered"
+        ng-submit="$ctrl.respondVote($ctrl.responseVal, $ctrl.runningVote)">
+        <h6 class="subtitle">You too?</h6>
+        <div class="u-full-width">
+            <label>
+                <input type="radio" ng-model="$ctrl.responseVal" ng-value="$ctrl.positive"/>
+                <span class="label-body">Yes</span>
+            </label>
+        </div>
+        <div class="u-full-width">
+            <label>
+                <input type="radio" ng-model="$ctrl.responseVal" ng-value="$ctrl.negative" />
+                <span class="label-body">No</span>
+            </label>
+        </div>
+        <div class="u-full-width" ng-if="$ctrl.runningVote.vote.allowSuggestions">
+            <!-- only show this if the guy who asks wants to allow it -->
+            <label>
+                <input type="radio" ng-model="$ctrl.responseVal" ng-value="$ctrl.other"/>
+                <span class="label-body">
+                    Other <input type="text" ng-model="$ctrl.responseVal.restaurant"
+                                ng-disabled="$ctrl.responseVal!==$ctrl.other"
+                                ng-required="$ctrl.responseVal===$ctrl.other" />
+                </span>
+            </label>
+        </div>
+        <input type="submit" class="button-primary" value="Vote"/>
+    </form>
+    <div ng-if="$ctrl.voteOwner || $ctrl.voteAnswered">
+
+        <div ng-hide="$ctrl.isNoVote($ctrl.voteResults)">
+            <span>
+                Look at the votes! <strong>{{$ctrl.voteResults[0] + $ctrl.voteResults[1]}} folks</strong> voted already
+            </span>
+            <canvas class="chart chart-doughnut" chart-data="$ctrl.voteResults"
+            chart-colors="colors" chart-labels="labels" height="100px"></canvas>
+            <ul ng-repeat="(pos, responses) in $ctrl.allVoteResponses | groupBy: 'positive'">
+                <span ng-if="pos">These guys voted Positive</span>
+                <span ng-if="!pos">And these guys don't like the idea</span>
+                <li ng-repeat="res in responses" >
+                    {{res.username}}
+                </li>
+            </ul>
+            <!-- <ul ng-repeat="(key, value) in $ctrl.allVoteResponses | groupBy: 'restaurant'">
+                {{ key }}
+                <li ng-repeat="player in value">
+                    player: {{ player.username }} 
+                </li>
+            </ul> -->
+            
+            <!-- <span>
+            These guys voted Positive
+            </span>
+            <ul>
+                <li ng-repeat="res in $ctrl.voterPos" >
+                    {{res.username}}
+                </li>
+            </ul>
+            <span>
+            And these guys don't like the idea
+            </span>
+            <ul>
+                <li ng-repeat="res in $ctrl.voterNeg">
+                    {{res.username}}
+                </li>
+            </ul> -->
+        </div>
+        <span ng-show="$ctrl.isNoVote($ctrl.voteResults)">
+            No votes so far, better wait for another minute
+        </span>
+        
+    </div>
+
+</div>
