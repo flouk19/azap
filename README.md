@@ -11,6 +11,6 @@
 2. Learn or know [meteor](https://www.meteor.com)
 3. [Install meteor](https://www.meteor.com/install)
 3. cd in the directory and type meteor
-4. open your browser at localhost:3000
+4. open your browser at [localhost:3000](http://localhost:3000)
 5. Have fun
 6. Improve
