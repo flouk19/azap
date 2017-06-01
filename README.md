@@ -6,7 +6,7 @@
 * Manage your colleagues debts (A Lennister always pays his debt, PLANNED)
 * Simply Manage restaurants around you step by step, when needed(PLANNED)
 
-##Getting started
+## Getting started
 1. Check out this repository
 2. Learn or know [meteor](https://www.meteor.com)
 3. [Install meteor](https://www.meteor.com/install)
