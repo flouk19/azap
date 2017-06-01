@@ -1,6 +1,6 @@
 # azap
 "As zoon as Pizza" is a lunch coordination tool for you and your team built with meteor and angular as front-end.
-##Features
+## Features
 * Start a vote what to do for lunch.
 * Choose where to order e.g. Pizza and whos ordering(PLANNED)
 * Manage your colleagues debts (A Lennister always pays his debt, PLANNED)
