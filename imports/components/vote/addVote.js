@@ -11,7 +11,7 @@ class AddVoteCtrl {
         $scope.viewModel(this);
         this.subscribe('runningVote');
         this.subscribe('restaurants');
-
+        this.allowSuggestions = true;
         this.helpers({
 
             datetimepickerOptions(){
