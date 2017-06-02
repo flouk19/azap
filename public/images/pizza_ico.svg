@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" width="64" height="64" id="svg4684" version="1.1" inkscape:version="0.91 r13725" viewBox="0 0 64 64" sodipodi:docname="pizza_ico.svg" inkscape:export-filename="D:\Entwicklung\Azap\trunk\public\images\pizza_ico.png" inkscape:export-xdpi="126" inkscape:export-ydpi="126">
+  <defs id="defs4686" />
+  <sodipodi:namedview id="base" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageopacity="0.0" inkscape:pageshadow="2" inkscape:zoom="5.5" inkscape:cx="26.53616" inkscape:cy="16.049803" inkscape:current-layer="layer1" showgrid="true" inkscape:document-units="px" inkscape:grid-bbox="true" inkscape:window-width="1068" inkscape:window-height="1479" inkscape:window-x="1923" inkscape:window-y="222" inkscape:window-maximized="0" />
+  <metadata id="metadata4689">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title />
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g id="layer1" inkscape:label="Layer 1" inkscape:groupmode="layer">
+    <path style="display:inline;fill:#ffffff;stroke:#b6621d;stroke-width:5.08;stroke-linejoin:bevel;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;fill-opacity:1" id="path4150" sodipodi:type="arc" sodipodi:cx="32.363636" sodipodi:cy="1.6032642" sodipodi:rx="60.879829" sodipodi:ry="60.879829" sodipodi:start="1.0471976" sodipodi:end="2.0943951" d="m 62.803548,54.326745 a 60.879829,60.879829 0 0 1 -60.8798266,-2e-6 L 32.363636,1.6032642 Z" inkscape:export-xdpi="126" inkscape:export-ydpi="126" />
+    <path style="display:inline;fill:none;stroke:#924e17;stroke-width:2.07848334;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="path4160" sodipodi:type="arc" sodipodi:cx="31.974007" sodipodi:cy="-0.9874422" sodipodi:rx="49.59523" sodipodi:ry="57.0681" sodipodi:start="1.0471976" sodipodi:end="2.0943951" d="m 56.771622,48.434982 a 49.59523,57.0681 0 0 1 -49.5952303,0" sodipodi:open="true" />
+    <circle style="display:inline;fill:#9c6011;fill-opacity:1;stroke:#9c6011;stroke-width:0.2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="path4164" cx="21.443926" cy="47.094601" r="3.4923761" />
+    <circle cy="40.138275" cx="36.907825" id="circle4168" style="display:inline;fill:#720505;fill-opacity:1;stroke:#720505;stroke-width:1.90285432;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" r="7.7113228" />
+    <circle style="display:inline;fill:#eded00;fill-opacity:1;stroke:#000000;stroke-width:0.2;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;stroke-linejoin:miter" id="circle4170" cx="32.622387" cy="22.682335" r="4.7391291" />
+  </g>
+</svg>
