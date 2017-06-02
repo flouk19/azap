@@ -36,7 +36,7 @@ Meteor.methods({
             throw new Meteor.Error('not-authorized');
         }
         //Check if there is already a vote running
-        const vote = false;//Votes.findOne({finished: { $eq: false }});
+        const vote = Votes.findOne({finished: { $eq: false }});
         if(!vote){
             Votes.insert({
                 createdAt: new Date(),
