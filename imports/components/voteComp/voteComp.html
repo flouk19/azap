@@ -29,49 +29,4 @@
         </div>
         <input type="submit" class="button-primary" value="Vote"/>
     </form>
-    <div ng-if="$ctrl.voteOwner || $ctrl.voteAnswered">
-
-        <div ng-hide="$ctrl.isNoVote($ctrl.voteResults)">
-            <span>
-                Look at the votes! <strong>{{$ctrl.voteResults[0] + $ctrl.voteResults[1]}} folks</strong> voted already
-            </span>
-            <canvas class="chart chart-doughnut" chart-data="$ctrl.voteResults"
-            chart-colors="colors" chart-labels="labels" height="100px"></canvas>
-            <div>
-                <span>
-                These guys are positive, <strong>{{$ctrl.runningVote.restaurant.name}}</strong>-positive
-                </span>
-                <ul>
-                    <li ng-repeat="res in $ctrl.posVoteResponses" >
-                        {{res.username}}
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <span>
-                And these guys don't like the idea
-                </span>
-                <ul>
-                    <li ng-repeat="res in $ctrl.negVoteResponses">
-                        {{res.username}}
-                    </li>
-                </ul>
-            </div>
-            <div class="results-per-restaurant" ng-repeat="(restaurant, responses) in $ctrl.otherVoteResponses | groupBy: 'restaurant'">
-                <span>These guys want to order at <strong>{{restaurant}}</strong></span>
-                <ul>
-                    <li ng-repeat="res in responses">
-                        {{ res.username }}
-                    </li>
-                </ul>
-            </div>
-
-
-        </div>
-        <span ng-show="$ctrl.isNoVote($ctrl.voteResults)">
-            No votes so far, better wait for another minute
-        </span>
-
-    </div>
-
 </div>

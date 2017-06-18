@@ -5,6 +5,7 @@ import angularMeteor from 'angular-meteor';
 import addVote from '../imports/components/vote/addVote';
 import voteComp from '../imports/components/voteComp/voteComp';
 import vote from '../imports/components/vote/vote';
+import voteResult from '../imports/components/vote/voteResult';
 import '../imports/startup/accounts-config.js';
 import '../imports/other/angular-bootstrap-datetimepicker-directive.js';
 import Chart from 'chart.js/src/chart.js';
@@ -18,6 +19,7 @@ angular.module('simple-todos', [
   'accounts.ui',
   voteComp.name,
   addVote.name,
+  voteResult.name,
   'chart.js'
 ]);
 

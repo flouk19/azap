@@ -38,6 +38,7 @@ Meteor.methods({
         //Check if there is already a vote running
         const vote = Votes.findOne({finished: { $eq: false }});
         if(!vote){
+            //var result = //doesnt work like this
             Votes.insert({
                 createdAt: new Date(),
                 validUntil: validDate,
@@ -47,6 +48,7 @@ Meteor.methods({
                 restaurant: restaurant,
                 finished: false,
             });
+            //return result;
         }else{
             throw new Meteor.Error('only-one-running-vote-allowed');
         }
