@@ -13,9 +13,6 @@ class VoteCompCtrl {
         this.subscribe('Meteor.users.names');
         this.subscribe('runningVote');
         this.subscribe('restaurants');
-        this.subscribe('voteResponses');
-        $scope.labels = ["Yes", "No"];
-        $scope.colors = ["#52B3D9","#ABB7B7"];
 
         this.positive = {
             positive: true
@@ -65,44 +62,8 @@ class VoteCompCtrl {
                     return true;
                 }
                 return false;
-            },
-            voteResults(){
-                var pos = this.findVoteResults(true);
-                var posCnt = 0;
-                if(pos){
-                    posCnt = pos.count();
-                }
-                var neg = this.findVoteResults(false);
-                var negCnt = 0;
-                if(neg){
-                    negCnt = neg.count();
-                }
-                return [posCnt, negCnt];
-            },
-            posVoteResponses(){
-                return this.findVoteResults(true, true);
-            },
-            negVoteResponses(){
-                return this.findVoteResults(false);
-            },
-            otherVoteResponses(){
-                return this.findVoteResults(true, false);
-            },
-            allVoteResponses(){
-                return this.findVoteResults();
-            },
-
+            }
         });
-    }
-//TODO doesnt work because of digest
-    randomOtherRestaurantText(restaurantName){
-        var texts = ["These guys want to order at "+restaurantName,
-        "They don't like your idea, they like "+restaurantName,
-        "I don't wanna, I want "+restaurantName,
-        "Sorry dude, but I think "+restaurantName+" is nicer"
-        ];
-        var random = Math.floor((Math.random() * texts.length));
-        return texts[random];
     }
 
     respondVote(response, voteRest){
@@ -127,53 +88,6 @@ class VoteCompCtrl {
         if(vote)
             Meteor.call('votes.remove', vote._id);
     }
-
-    findVoteResults(positive, voteRestaurantOnly){
-        var vote = Votes.findOne({
-            finished:{
-                $eq: false
-            }
-        });
-
-        if(vote){
-            var responses;
-            var selectors = [];
-            var selector = {};
-            //if positiv is not set, return all
-            selectors.push({ voteId: vote._id });
-            if(typeof positive !== 'undefined')
-            {
-                selectors.push({positive: positive});
-            }
-            //if voteRestaurantOnly is true, only the restaurant specified in the running vote
-            // will be returned
-            if(voteRestaurantOnly === true){
-                selectors.push({restaurantId:{$eq: vote.restaurant}});
-                //if its false, only the restaurants which are NOT specified in the running vote are returned
-            }else if (voteRestaurantOnly === false){
-                selectors.push({restaurantId:{$ne: vote.restaurant}});
-            }
-            //only if voteRestaurantOnly is not defined all restaurants are returned
-
-            if(selectors.length===1){
-                selector = selectors[0];
-            }else if(selectors.length >=1){
-                selector = {
-                    $and: selectors
-                };
-            }
-            return VoteResponses.find(selector);
-        }
-    }
-
-    isNoVote(voteResultArray){
-        if(voteResultArray && voteResultArray.length === 2 &&
-            voteResultArray[0] === 0 && voteResultArray[1] === 0){
-            return true;
-        }
-        return false;
-    }
-
 }
 export default angular.module('voteComp', [
     angularMeteor

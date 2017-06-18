@@ -72,7 +72,16 @@ Meteor.methods({
             positive: positive,
             voteId: voteId
         })
+    },
+    'voteResponses.remove' (voteResponseId){
+        check(voteResponseId, String);
+        const resp = VoteResponses.findOne(voteResponseId);
+        if(response.voter !== Meteor.userId()){
+            throw new Meteor.Error('not-authorized');
+        }
+        Votes.remove(voteResponseId);
     }
+
     // 'tasks.setChecked' (taskId, setChecked) {
     //     check(taskId, String);
     //     check(setChecked, Boolean);
