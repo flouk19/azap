@@ -14,9 +14,18 @@ class VoteResultCtrl {
         this.subscribe('runningVote');
         this.subscribe('restaurants');
         this.subscribe('voteResponses');
+        Chart.defaults.global.elements.arc.borderColor = '#FFC38E';
+        Chart.defaults.global.elements.arc.borderWidth = 18;
+        Chart.defaults.global.tooltips.displayColors = false;
         $scope.labels = ["Yes", "No"];
-        $scope.colors = ["#52B3D9","#ABB7B7"];
+        $scope.colors = [
+            "#47B219", //paprika-green(Y)
+            "#DA290B", //tomato-red(N)
+            "#FFD445", //cheese-yellow
+            "#A82E1D", //salami-darkred
+            "#DEC980", //champignon-brown
 
+        ]//["#52B3D9","#ABB7B7"];
         this.positive = {
             positive: true
         };

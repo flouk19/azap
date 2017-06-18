@@ -1,12 +1,22 @@
 color scheme:
 primary:
-darkorange:		d46c2b
+darkorange:		#d46c2b
 
 similar:
-lightorange/apricot:	ff924d
-lightbrown:		873d0e
-dark red:		790000
+lightorange/apricot:	#ff924d
+lightbrown:		#873d0e
+dark red:		#790000
 
 complementary:
-dark turquoise:		008487
-light turquoise:	2bcfd4
+dark turquoise:		#008487
+light turquoise:	#2bcfd4
+
+
+
+pizza-colors:
+paprika-green(Y):	#47B219
+tomato-red(N):		#DA290B
+salami-darkred:		#A82E1D
+champignon-brown:	#DEC980
+cheese-yellow:		#FFD445
+pizzateig-brown:	#C7713C
