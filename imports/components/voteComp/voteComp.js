@@ -21,7 +21,7 @@ class VoteCompCtrl {
             positive: false
         };
         this.other = {
-            positive: true
+            positive: false
         };
         this.responseVal = this.positive;
         this.voteId;
@@ -68,7 +68,7 @@ class VoteCompCtrl {
 
     respondVote(response, voteRest){
         //if its positive and the restaurantid is not set or its different from the runningvote's one
-        if(response.positive && (!response.restaurantId || response.restaurantId !== voteRest.restaurant._id) ){
+        if(!response.positive && (!response.restaurantId || response.restaurantId !== voteRest.restaurant._id) ){
             //Try to insert first to avoid the need of searching twice
             Meteor.call('restaurants.insert', response.restaurant);
             var restaurant = Restaurants.findOne({ name: {$eq:response.restaurant}});
