@@ -26,16 +26,6 @@ class VoteResultCtrl {
             "#DEC980", //champignon-brown
 
         ]//["#52B3D9","#ABB7B7"];
-        this.positive = {
-            positive: true
-        };
-        this.negative = {
-            positive: false
-        };
-        this.other = {
-            positive: true
-        };
-        this.responseVal = this.positive;
         this.voteId;
         this.helpers({
             runningVote(){
@@ -46,7 +36,7 @@ class VoteResultCtrl {
                         vote: vote,
                         restaurant: restaurant
                     };
-                    this.positive.restaurantId = vote.restaurant;
+                    //this.positive.restaurantId = vote.restaurant;
                     this.voteId = vote._id;
                     return voteRest;
                 }
@@ -76,12 +66,12 @@ class VoteResultCtrl {
                 return false;
             },
             voteResults(){
-                var pos = this.findVoteResults(true);
+                var pos = this.findVoteResults(1);
                 var posCnt = 0;
                 if(pos){
                     posCnt = pos.count();
                 }
-                var neg = this.findVoteResults(false);
+                var neg = this.findVoteResults(0);
                 var negCnt = 0;
                 if(neg){
                     negCnt = neg.count();
@@ -89,43 +79,19 @@ class VoteResultCtrl {
                 return [posCnt, negCnt];
             },
             posVoteResponses(){
-                return this.findVoteResults(true, true);
+                return this.findVoteResults(1);
             },
             negVoteResponses(){
-                return this.findVoteResults(false);
+                return this.findVoteResults(0);
             },
             otherVoteResponses(){
-                return this.findVoteResults(true, false);
+                return this.findVoteResults(-1);
             },
             allVoteResponses(){
                 return this.findVoteResults();
             },
 
         });
-    }
-//TODO doesnt work because of digest
-    randomOtherRestaurantText(restaurantName){
-        var texts = ["These guys want to order at "+restaurantName,
-        "They don't like your idea, they like "+restaurantName,
-        "I don't wanna, I want "+restaurantName,
-        "Sorry dude, but I think "+restaurantName+" is nicer"
-        ];
-        var random = Math.floor((Math.random() * texts.length));
-        return texts[random];
-    }
-
-    respondVote(response, voteRest){
-        //if its positive and the restaurantid is not set or its different from the runningvote's one
-        if(response.positive && (!response.restaurantId || response.restaurantId !== voteRest.restaurant._id) ){
-            //Try to insert first to avoid the need of searching twice
-            Meteor.call('restaurants.insert', response.restaurant);
-            var restaurant = Restaurants.findOne({ name: {$eq:response.restaurant}});
-            response.restaurantId = restaurant._id;
-        }
-        Meteor.call('voteResponses.insert',
-            voteRest.vote._id, response.positive, response.restaurantId);
-        response.restaurantId = undefined;
-        response.restaurant = undefined;
     }
 
     finishVote(vote){
@@ -158,7 +124,7 @@ class VoteResultCtrl {
         }
     }
 
-    findVoteResults(positive, voteRestaurantOnly){
+    findVoteResults(opinion){
         var vote = Votes.findOne({
             finished:{
                 $eq: false
@@ -166,25 +132,25 @@ class VoteResultCtrl {
         });
 
         if(vote){
-            var responses;
             var selectors = [];
             var selector = {};
             //if positiv is not set, return all
             selectors.push({ voteId: vote._id });
-            if(typeof positive !== 'undefined')
+            if(typeof opinion !== 'undefined')
             {
-                selectors.push({positive: positive});
+                //1 means positive result
+                if(opinion === 1){
+                    selectors.push({restaurantId:{$eq: vote.restaurant}});
+                //0 means No
+                }else if(opinion === 0){
+                    selectors.push({restaurantId: {$exists: false}});
+                //-1 means different opinion
+                }else if(opinion === -1){
+                    selectors.push({
+                        restaurantId: {$exists: true, $ne: vote.restaurant, $ne: null}
+                    });
+                }
             }
-            //if voteRestaurantOnly is true, only the restaurant specified in the running vote
-            // will be returned
-            if(voteRestaurantOnly === true){
-                selectors.push({restaurantId:{$eq: vote.restaurant}});
-                //if its false, only the restaurants which are NOT specified in the running vote are returned
-            }else if (voteRestaurantOnly === false){
-                selectors.push({restaurantId:{$ne: vote.restaurant}});
-            }
-            //only if voteRestaurantOnly is not defined all restaurants are returned
-
             if(selectors.length===1){
                 selector = selectors[0];
             }else if(selectors.length >=1){

@@ -62,7 +62,7 @@ class AddVoteCtrl {
         Meteor.call('restaurants.insert', restaurant);
         const rest = Restaurants.findOne({name:{$eq: restaurant}})
         Meteor.call('votes.insert', rest._id, validDate.toDate(), allowSuggestions);
-        //Meteor.call('voteResponses.insert', voteidplaceholder, true, rest._id);
+        //Meteor.call('voteResponses.insert', voteidplaceholder, rest._id);
         //clear form
         this.restaurant = '';
     }

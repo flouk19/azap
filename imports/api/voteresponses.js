@@ -33,45 +33,30 @@ if( Meteor.isServer ){
 }
 
 Meteor.methods({
-    'voteResponses.insert' (voteId, positive, restaurantId) {
+    'voteResponses.insert' (voteId, restaurantId) {
         check(voteId, String);
-        check(positive, Boolean);
-        //Restaurant id is only needed if its a positive answer(yes i want to order at <restaurantId>)
-        if(positive){
-            check(restaurantId, String);
-        }
+        //RestaurantId is not necessary as it can be null/undefined
         //make sure the user is logged in before inserting a response
         if(!Meteor.userId()){
             throw new Meteor.Error('not-authorized');
         }
-        // The client should check if it exists
-        // if(positive){
-        //     const restaurant = Restaurants.findOne({_id: {$eq: restaurantId}});
-        //     if(!restaurant){
-        //         throw new Meteor.Error('The specified restaurant does not exist');
-        //     }
-        // }
-        var response = VoteResponses.findOne({
-            $and:[{
-                    voter:{
-                        $eq: Meteor.userId()
+        console.log(restaurantId);
+        VoteResponses.upsert(
+            {
+                $and:[{
+                        voter:{ $eq: Meteor.userId() }
+                    }, {
+                        voteId:{ $eq: voteId }
                     }
-                }, {
-                    voteId:{
-                        $eq: voteId
-                    }
-                }]
-        });
-        if(response){
-            throw new Meteor.Error('The user voted already on this question');
-        }
-        VoteResponses.insert({
-            createdAt: new Date(),
-            voter: Meteor.userId(),
-            restaurantId: restaurantId,
-            positive: positive,
-            voteId: voteId
-        })
+                ]
+            },
+            {
+                createdAt: new Date(),
+                voter: Meteor.userId(),
+                restaurantId: restaurantId,
+                voteId: voteId
+            }
+        );
     },
     'voteResponses.remove' (voteResponseId){
         check(voteResponseId, String);
@@ -81,37 +66,4 @@ Meteor.methods({
         }
         Votes.remove(voteResponseId);
     }
-
-    // 'tasks.setChecked' (taskId, setChecked) {
-    //     check(taskId, String);
-    //     check(setChecked, Boolean);
-    //     const task = Tasks.findOne(taskId);
-    //     if (task.private && task.owner !== Meteor.userId()) {
-    //         // If the task is private, make sure only the owner can check it off
-    //         throw new Meteor.Error('not-authorized');
-    //     }
-    //     Tasks.update(taskId, {
-    //         $set: {
-    //             checked: setChecked
-    //         }
-    //     });
-    // },
-    // 'tasks.setPrivate' (taskId, setToPrivate){
-    //     check(taskId, String);
-    //     check(setToPrivate, Boolean);
-    //     //make sure the user is logged in before inserting a tasks
-    //     if(!Meteor.userId()){
-    //         throw new Meteor.Error('not-authorized');
-    //     }
-    //     const task = Tasks.findOne(taskId);
-    //     // Make sure only the task owner can make a task private
-    //     if (task.owner !== Meteor.userId()) {
-    //         throw new Meteor.Error('not-authorized');
-    //     }
-    //     Tasks.update(taskId, {
-    //         $set: {
-    //             private: setToPrivate
-    //         }
-    //     });
-    // },
 });
